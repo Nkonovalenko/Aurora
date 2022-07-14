@@ -1,5 +1,13 @@
 # Aurora
  Aurora is my venture into algorithmic trading
+ 
+ # Setup
+ ```
+ pip install finnhub-python
+ pip install matplotlib
+ pip install matplotlib-pyplot
+ python3 rest.py
+ ```
 
 ## To-Do
 - Clean up the plot window
@@ -8,6 +16,7 @@
 - Track P/L from strategy
 - Setup frontend & backend to track live
 - Figure out how to add in machine learning & statistics
+- Add a requirements file for packages
 
 ## What I've done so far:
 - Connect to Finnhub API
