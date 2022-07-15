@@ -5,6 +5,7 @@ from datetime import datetime
 import numpy as numpy
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+from math import floor
 
 # Specify which secret to read
 SECRET_TYPE = 'sandbox_secret.txt'
@@ -68,6 +69,16 @@ def draw_all_candlesticks(axis, data, color_up='green', color_down='red'):
         axis = draw_candlestick(axis, data[day], color_up, color_down)
     return axis
 
+# Draw a point(axis, data)
+def draw_sma(axis, data, color='purple'):
+    for i, datum in enumerate(data):
+        if i > 2:
+            axis.plot((i-1, i), (int(data[i-1]), int(datum)), linewidth=1.5, color=color, zorder=2)
+    return axis
+
+# Get SMA
+sma = fhub_client.technical_indicator(symbol=ticker, resolution='D', _from=1591100000, to=1593572249, indicator='sma', indicator_fields={"timeperiod": 1})
+
 # Create candlestick chart
 mpl.rcParams['font.family'] = 'serif'
 mpl.rcParams['font.size'] = 18
@@ -87,6 +98,9 @@ ax.grid(linestyle='-', linewidth=2, color='white', zorder=1)
 
 # Draw candlesticks
 ax = draw_all_candlesticks(ax, data)
+
+# Draw the SMA
+ax = draw_sma(ax, sma['sma'])
 
 # Add dollar signs
 formatter = mpl.ticker.FormatStrFormatter('$%.2f')
